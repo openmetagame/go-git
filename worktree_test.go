@@ -3051,9 +3051,8 @@ func setupForRestore(c *C, s *WorktreeSuite) (fs billy.Filesystem, w *Worktree, 
 	})
 
 	// Touch of bunch of files including create a new file and delete an exsiting file
-	for i, name := range names {
-		contents := fmt.Sprintf("Foo Bar:%d", i)
-		err = util.WriteFile(fs, name, []byte(contents), 0755)
+	for _, name := range names {
+		err = util.WriteFile(fs, name, []byte("Foo Bar"), 0755)
 		c.Assert(err, IsNil)
 	}
 	err = util.RemoveAll(fs, names[3])
@@ -3159,7 +3158,7 @@ func (s *WorktreeSuite) TestRestoreWorktree(c *C) {
 
 	opts.Files = []string{names[0], names[1]}
 	err = w.Restore(&opts)
-	c.Assert(err, Equals, ErrRestoreWorktreeeOnlyNotSupported)
+	c.Assert(err, Equals, ErrRestoreWorktreeOnlyNotSupported)
 }
 
 func (s *WorktreeSuite) TestRestoreBoth(c *C) {

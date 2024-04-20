@@ -25,12 +25,12 @@ import (
 )
 
 var (
-	ErrWorktreeNotClean                 = errors.New("worktree is not clean")
-	ErrSubmoduleNotFound                = errors.New("submodule not found")
-	ErrUnstagedChanges                  = errors.New("worktree contains unstaged changes")
-	ErrGitModulesSymlink                = errors.New(gitmodulesFile + " is a symlink")
-	ErrNonFastForwardUpdate             = errors.New("non-fast-forward update")
-	ErrRestoreWorktreeeOnlyNotSupported = errors.New("worktree only is not supported")
+	ErrWorktreeNotClean                = errors.New("worktree is not clean")
+	ErrSubmoduleNotFound               = errors.New("submodule not found")
+	ErrUnstagedChanges                 = errors.New("worktree contains unstaged changes")
+	ErrGitModulesSymlink               = errors.New(gitmodulesFile + " is a symlink")
+	ErrNonFastForwardUpdate            = errors.New("non-fast-forward update")
+	ErrRestoreWorktreeOnlyNotSupported = errors.New("worktree only is not supported")
 )
 
 // Worktree represents a git worktree.
@@ -329,7 +329,7 @@ func (w *Worktree) ResetSparsely(opts *ResetOptions, dirs []string) error {
 // If Staged and Worktree are true, then the restore source will be the index.
 // If only Staged is true, then the restore source will be HEAD.
 // If only Worktree is true or neither Staged nor Worktree are true, will
-// result in ErrRestoreWorktreeeOnlyNotSupported because restoring the working
+// result in ErrRestoreWorktreeOnlyNotSupported because restoring the working
 // tree while leaving the stage untouched is not currently supported.
 //
 // Restore with no files specified will return ErrNoRestorePaths.
@@ -354,7 +354,7 @@ func (w *Worktree) Restore(o *RestoreOptions) error {
 		return w.Reset(opts)
 	}
 
-	return ErrRestoreWorktreeeOnlyNotSupported
+	return ErrRestoreWorktreeOnlyNotSupported
 }
 
 // Reset the worktree to a specified state.
