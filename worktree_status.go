@@ -32,6 +32,8 @@ var (
 	// ErrUnsupportedStatusStrategy occurs when an invalid StatusStrategy is used
 	// when processing the Worktree status.
 	ErrUnsupportedStatusStrategy = errors.New("unsupported status strategy")
+	// ErrNoFiles in an AddFiles if no files are provided.
+	ErrNoFiles = errors.New("no files")
 )
 
 // Status returns the working tree status.
@@ -399,6 +401,17 @@ func (w *Worktree) AddGlob(pattern string) error {
 
 	if len(files) == 0 {
 		return ErrGlobNoMatches
+	}
+
+	return w.AddFiles(files)
+}
+
+// AddFiles adds all paths to the index. If pattern matches a
+// directory path, all directory contents are added to the index recursively. No
+// error is returned if all matching paths are already staged in index.
+func (w *Worktree) AddFiles(files []string) error {
+	if len(files) == 0 {
+		return ErrNoFiles
 	}
 
 	s, err := w.Status()
